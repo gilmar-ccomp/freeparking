@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import Rota from './Rotas';
+import React from 'react';
+import Rotas from './Rotas';
 
 
 const princ = () => {
     return (
-        <Rota/>
+        <Rotas/>
     );
 };
 
