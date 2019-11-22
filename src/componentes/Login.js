@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Alert, Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { navigation } from 'react-navigation-stack';
+import api from '../services/api';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -21,8 +22,17 @@ export default class Login extends Component {
   }
  
 
-  clicou = () => {
-    Alert.alert('Login Efetuado');
+  Logar(){
+    api . post ( ' /auth ' , { 
+      email : ' 07.gilmar@gmail.com ' , 
+      password : ' 123 ' 
+    } )
+    . then ( function ( response )  { 
+      Alert.alert( response ) ;
+    } )
+    . catch ( function ( error )  { 
+      Alert.alert ( error ) ;
+    } ) ;
   }
   cadastrar() {
     this.props.navigation.navigate('Cadastrar');
@@ -40,7 +50,7 @@ export default class Login extends Component {
         <TextInput style={styles.ctexto} secureTextEntry={true} placeholder='Digite sua senha'></TextInput>
         <Text style={styles.instructions}>{instructions}</Text>
         <TouchableOpacity style={styles.botao}
-          onPress={() => { this.clicou() }}>
+          onPress={() => { this.Logar() }}>
           <Text>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.botao}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {Alert, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import api from '../services/api';
 
 
 const instructions = Platform.select({
@@ -11,13 +12,25 @@ const instructions = Platform.select({
 export default class Cadastrar extends Component {
 
   cadastrar2() {
-    this.props.navigation.navigate('Cadastro',{'nome': this.state.nome});
+    api . post ( ' /users ' , { 
+      username : this.state.nome,
+      email : this.state.email , 
+      registration_id : this.state.matricula,
+      password : this.state.csenha 
+    } )
+    . then ( function ( response )  { 
+      
+      this.props.navigation.navigate('Home',{'nome': this.state.nome});
+    } )
+    . catch ( function ( error )  { 
+      Alert.alert ( error.message ) ;
+    } ) ;
   }
 
   state = {
     matricula:'',
     nome:'',
-    unidade:'',
+    email:'',
     senha:'',
     csenha:''
   }
@@ -38,8 +51,8 @@ export default class Cadastrar extends Component {
              onChangeText = { text => this.state.nome = text } >
         </TextInput>
         <TextInput 
-              style={styles.ctexto} placeholder='Escolha sua unidade'
-              onChangeText = { text => this.state.unidade = text } >
+              style={styles.ctexto} placeholder='Digite seu email'
+              onChangeText = { text => this.state.email = text } >
         </TextInput>
         <TextInput
               style={styles.ctexto} placeholder='Digite sua senha'

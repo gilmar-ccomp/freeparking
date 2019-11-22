@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Login from './Login';
 import Cadastrar from './Cadastrar';
 import cadastro from './Cadastro';
+import Home from './Home';
 
 const MainNav = createStackNavigator (
 {
@@ -25,6 +25,12 @@ const MainNav = createStackNavigator (
         navigationOptions:{
             headerTitle: 'Cadastro Realizado'
 
+        }
+    },
+    Home:{
+        screen: Home,
+        navigationOptions:{
+            headerTitle:'Bem vindo'
         }
     }
 }    
