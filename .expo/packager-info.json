@@ -1,9 +1,9 @@
 {
-  "packagerPort": 19001,
-  "packagerPid": 6728,
-  "expoServerNgrokUrl": "https://4f-7ke.anonymous.freeparking.exp.direct",
-  "packagerNgrokUrl": "https://packager.4f-7ke.anonymous.freeparking.exp.direct",
-  "ngrokPid": 5304,
+  "expoServerNgrokUrl": "https://c9-zk2.anonymous.freeparking.exp.direct",
+  "packagerNgrokUrl": "https://packager.c9-zk2.anonymous.freeparking.exp.direct",
+  "ngrokPid": 11252,
   "devToolsPort": 19002,
-  "expoServerPort": 19000
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 10880
 }

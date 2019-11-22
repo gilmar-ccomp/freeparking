@@ -11,21 +11,33 @@ const instructions = Platform.select({
 
 export default class Cadastrar extends Component {
 
-  cadastrar2() {
-    api . post ( ' /users ' , { 
-      username : this.state.nome,
-      email : this.state.email , 
-      registration_id : this.state.matricula,
-      password : this.state.csenha 
-    } )
-    . then ( function ( response )  { 
-      
-      this.props.navigation.navigate('Home',{'nome': this.state.nome});
-    } )
-    . catch ( function ( error )  { 
-      Alert.alert ( error.message ) ;
-    } ) ;
-  }
+  cadastrar2 = async () => {
+    if (this.state.email.length === 0 || this.state.csenha.length === 0) {
+      this.setState({ error: 'Preencha usuário e senha para continuar!' }, () => false);
+    } else {
+      try {
+        const response = await api.post('/users', {
+          username : this.state.nome,
+          email: this.state.email,
+          registration_id : this.state.matricula,
+          password: this.state.csenha
+        });
+          
+        await AsyncStorage.setItem('@AirBnbApp:token', response.data.token);
+
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Main' }),
+          ],
+        });
+        this.props.navigation.dispatch(resetAction);
+      } catch (_err) {
+        this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
+      }
+    }
+  };
+  
 
   state = {
     matricula:'',
@@ -65,7 +77,7 @@ export default class Cadastrar extends Component {
         <Text style={styles.instructions}>{instructions}</Text>
         <TouchableOpacity 
               style={styles.botao}
-              onPress = { () => this.cadastrar2()}>
+              onPress = { () => this.cadastrar2}>
           <Text>Confirmar</Text>
         </TouchableOpacity>
       </View>
