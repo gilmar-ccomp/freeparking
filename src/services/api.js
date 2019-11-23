@@ -1,16 +1,11 @@
-import axios from 'axios';
-import { getToken } from './auth';
+import { create } from 'apisauce';
 
-const api = axios.create({
-  baseURL: 'localhost:3333/api/'
+const api = create({
+  baseURL: 'http://localhost:3333/api'
 });
 
-api.interceptors.request.use(async config => {
-  const token = getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+api.addResponseTransform(response => {
+  if (!response.ok) throw response;
+})
 
 export default api;

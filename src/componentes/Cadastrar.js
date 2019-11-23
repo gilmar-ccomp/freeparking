@@ -1,85 +1,60 @@
-import React, { Component } from 'react';
-import {Alert, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react'
+import { Alert,  StyleSheet, Text, View, Image,Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { navigation } from 'react-navigation-stack';
 import api from '../services/api';
 
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
-});
-
-export default class Cadastrar extends Component {
-
-  cadastrar2 = async () => {
-    if (this.state.email.length === 0 || this.state.csenha.length === 0) {
-      this.setState({ error: 'Preencha usuário e senha para continuar!' }, () => false);
-    } else {
-      try {
-        const response = await api.post('/users', {
-          username : this.state.nome,
-          email: this.state.email,
-          registration_id : this.state.matricula,
-          password: this.state.csenha
-        });
-          
-        await AsyncStorage.setItem('@AirBnbApp:token', response.data.token);
-
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Main' }),
-          ],
-        });
-        this.props.navigation.dispatch(resetAction);
-      } catch (_err) {
-        this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
-      }
-    }
-  };
-  
+export default class Login extends Component {
 
   state = {
-    matricula:'',
-    nome:'',
-    email:'',
-    senha:'',
-    csenha:''
-  }
+         erroMessage:'',
+        //construtor de senha e email vazios
+        //nome: '',
+        //senha: ''
+    };
+ 
+
+  Logar = async () => {
+    try {
+      const response = await api.post( '/auth' , { 
+        email: '07.gilmar@gmail.com' , 
+        password: '123', 
+      } )
+      . then ( function ( response )  { 
+        Alert.alert( response ) ;
+      } )
+      . catch ( function ( error )  { 
+        Alert.alert ( error ) ;
+      } ) ;
   
+      const { token } = response.data;
+  
+      await AsyncStorage.multset([
+        ['@CodeApi:token', token]
+      ]);
+
+       console.log(response);
+    }catch (response){
+      this.setState({ erroMessage : response.data.error});
+    }
+
+    };
+    
+  
+
   render() {
     return (
       <View style={styles.container}>
-        
-        <Text style={styles.welcome}>Tela de Cadastro!</Text>
-        <Text style={styles.instructions}>Complete os campos abaixo para se cadastrar</Text>
-        <TextInput 
-             style={styles.ctexto} placeholder='Digite sua matrícula'
-             onChangeText = { text => this.state.matricula = text } 
-             >
-        </TextInput>
-        <TextInput 
-             style={styles.ctexto} placeholder='Digite seu nome'
-             onChangeText = { text => this.state.nome = text } >
-        </TextInput>
-        <TextInput 
-              style={styles.ctexto} placeholder='Digite seu email'
-              onChangeText = { text => this.state.email = text } >
-        </TextInput>
-        <TextInput
-              style={styles.ctexto} placeholder='Digite sua senha'
-              onChangeText = { text => this.state.senha = text } >
-        </TextInput>
-        <TextInput
-              style={styles.ctexto} secureTextEntry={true} placeholder='Confirme sua senha'
-              onChangeText = { text => this.state.csenha = text } >
-        </TextInput>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <TouchableOpacity 
-              style={styles.botao}
-              onPress = { () => this.cadastrar2}>
-          <Text>Confirmar</Text>
-        </TouchableOpacity>
+
+        <Image style={styles.welcomeImage} source={require('../assets/images/carro.png')}
+        />
+        <Text style={styles.welcome}>Bem vindo ao Free Parking!</Text>
+        <Text style={styles.instructions}>Encontre sua vaga </Text>
+        { !!this.state.erroMessage && <Text>{ this.state.erroMessage } </Text>}
+        <TextInput style={styles.ctexto} placeholder='Digite sua matrícula'></TextInput>
+        <TextInput style={styles.ctexto} secureTextEntry={true} placeholder='Digite sua senha'></TextInput>
+        <Button style={styles.botao} onPress={ this.Logar} title="Logar"/>
+    
       </View>
     );
   }
@@ -104,7 +79,7 @@ const styles = StyleSheet.create({
   },
   imageIcon: {
     width: 150,
-    height:150
+    height: 150
   },
   welcomeImage: {
     width: 200,
@@ -113,22 +88,22 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  ctexto:{
-    marginTop:10,
-    padding:15,
-    width:300,
-    backgroundColor:'#fff',
-    borderRadius:4,
+  ctexto: {
+    marginTop: 10,
+    padding: 15,
+    width: 300,
+    backgroundColor: '#fff',
+    borderRadius: 4,
     borderColor: '#F2F2F2',
-    alignItems:'center',
-    justifyContent:'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  botao:{
-    width:300,
-    backgroundColor:'#4CB1F7',
-    marginTop:10,
-    padding:15,
-    borderRadius:4,
+  botao: {
+    width: 300,
+    backgroundColor: '#4CB1F7',
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 4,
     borderColor: '#F2F2F2'
   }
 });
