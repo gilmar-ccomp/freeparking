@@ -1,7 +1,7 @@
 import { create } from 'apisauce';
 
 const api = create({
-  baseURL: 'http://localhost:3333/api'
+  baseURL: 'http://10.0.0.102:3333/api'
 });
 
 api.addResponseTransform(response => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, View, Image,Button } from 'react-native';
+import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { navigation } from 'react-navigation-stack';
 import api from '../services/api';
@@ -7,38 +7,40 @@ import api from '../services/api';
 export default class Login extends Component {
 
   state = {
-         erroMessage:'',
+         erroMessage: null,
         //construtor de senha e email vazios
-        //nome: '',
-        //senha: ''
+        nome: '',
+        matricula:'',
+        email:'',
+        senha: ''
     }; 
 
   Logar = async () => {
     try {
-      const response = await api.post( '/auth' , { 
-        email: '07.gilmar@gmail.com' , 
+      const response = await api.post('/auth', { 
+        email: 'teste@gmail.com', 
         password: '123', 
-      } )
-      . then(function( response )  { 
-        Alert.alert( response ) ;
-      } )
-      . catch(function( error )  { 
-        Alert.alert( error ) ;
-      } ) ;
+      } );
   
       const { token } = response.data;
   
-      await AsyncStorage.multset([
+      await AsyncStorage.multiSet([
         ['@CodeApi:token', token]
       ]);
 
        console.log(response);
+       Alert.alert('Logado');
     }catch (response){
-      this.setState({ erroMessage : response.data.error});
+      console.log('deu erro');
+      console.log(response);
+     /* this.setState({ erroMessage: response.data.err})*/
     }
 
-    }
+    };
     
+    cadastrar = () => {
+      this.navigation.navigate('Cadastrar');
+    }
   
 
   render() {
@@ -53,7 +55,7 @@ export default class Login extends Component {
         <TextInput style={styles.ctexto} placeholder='Digite sua matrícula'></TextInput>
         <TextInput style={styles.ctexto} secureTextEntry={true} placeholder='Digite sua senha'></TextInput>
         <Button style={styles.botao} onPress={ this.Logar} title="Logar"/>
-        <Button style={styles.botao} onPress={ this.cadastrar() } title="Cadastrar" />
+        <Button style={styles.botao} onPress={ this.cadastrar } title="Cadastrar" />
       </View>
     );
   }
