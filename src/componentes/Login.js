@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage } from 'react-native';
+import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage , } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { navigation } from 'react-navigation-stack';
 import api from '../services/api';
@@ -18,8 +18,8 @@ export default class Login extends Component {
   Logar = async () => {
     try {
       const response = await api.post('/auth', { 
-        email: 'teste@gmail.com', 
-        password: '123', 
+        email: this.state.email, 
+        password: this.state.senha, 
       } );
   
       const { token } = response.data;
@@ -30,20 +30,22 @@ export default class Login extends Component {
 
        console.log(response);
        Alert.alert('Logado');
+       
     }catch (response){
       console.log('deu erro');
       console.log(response);
-     /* this.setState({ erroMessage: response.data.err})*/
+      this.setState({ erroMessage: response.data.error})
     }
 
     };
-    
-    cadastrar = () => {
-      this.navigation.navigate('Cadastrar');
-    }
+
+    cadastrar = () => navigation.navigate('Cadastrar');
   
 
   render() {
+
+    const {navigate} = this.props.navigation;
+
     return (
       <View style={styles.container}>
 
@@ -52,10 +54,23 @@ export default class Login extends Component {
         <Text style={styles.welcome}>Bem vindo ao Free Parking!</Text>
         <Text style={styles.instructions}>Encontre sua vaga </Text>
         { !!this.state.erroMessage && <Text>{ this.state.erroMessage } </Text>}
-        <TextInput style={styles.ctexto} placeholder='Digite sua matrícula'></TextInput>
-        <TextInput style={styles.ctexto} secureTextEntry={true} placeholder='Digite sua senha'></TextInput>
-        <Button style={styles.botao} onPress={ this.Logar} title="Logar"/>
-        <Button style={styles.botao} onPress={ this.cadastrar } title="Cadastrar" />
+        
+        <TextInput
+          style={styles.ctexto} 
+          placeholder="Digite seu email"
+          onChangeText={text => this.setState({email:text})}
+          
+        />
+        <TextInput
+          style={styles.ctexto} 
+          placeholder="Digite sua senha"
+          onChangeText={text => this.setState({senha : text})}
+          
+        />
+
+        
+        <Button  onPress={ this.Logar} title="Logar"/>
+        <Button  onPress={ () => navigate('Cadastrar') } title="Cadastrar" />
       </View>
     );
   }
@@ -78,13 +93,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  imageIcon: {
-    width: 150,
-    height: 150
-  },
   welcomeImage: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
