@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   botao: {
-    width: 300,
+    width: 100,
     backgroundColor: '#4CB1F7',
     marginTop: 10,
     padding: 15,

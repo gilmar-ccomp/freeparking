@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage , } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { navigation } from 'react-navigation-stack';
@@ -31,6 +31,9 @@ export default class Login extends Component {
        console.log(response);
        Alert.alert('Logado');
        
+        if(token) {
+          this.props.navigation.navigate('Home');
+          }
     }catch (response){
       console.log('deu erro');
       console.log(response);
@@ -38,8 +41,6 @@ export default class Login extends Component {
     }
 
     };
-
-    cadastrar = () => navigation.navigate('Cadastrar');
   
 
   render() {
