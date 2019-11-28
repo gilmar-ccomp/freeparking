@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage , } from 'react-native';
+import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage , Platform, KeyboardAvoidingView} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { navigation } from 'react-navigation-stack';
 import api from '../services/api';
+
+
 
 export default class Login extends Component {
 
@@ -12,7 +13,7 @@ export default class Login extends Component {
         nome: '',
         matricula:'',
         email:'',
-        senha: ''
+        senha: '',
     }; 
 
   Logar = async () => {
@@ -30,16 +31,16 @@ export default class Login extends Component {
 
        console.log(response);
        Alert.alert('Logado');
-       
+      if(token){
+        this.navigation.navigate('Home');
+      }
     }catch (response){
       console.log('deu erro');
       console.log(response);
       this.setState({ erroMessage: response.data.error})
     }
 
-    };
-
-    cadastrar = () => navigation.navigate('Cadastrar');
+    };    
   
 
   render() {
@@ -47,7 +48,10 @@ export default class Login extends Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+       style={styles.container}
+       behavior="padding" enabled
+       >
 
         <Image style={styles.welcomeImage} source={require('../assets/images/carro.png')}
         />
@@ -71,7 +75,8 @@ export default class Login extends Component {
         
         <Button  onPress={ this.Logar} title="Logar"/>
         <Button  onPress={ () => navigate('Cadastrar') } title="Cadastrar" />
-      </View>
+    
+       </KeyboardAvoidingView>
     );
   }
 }
