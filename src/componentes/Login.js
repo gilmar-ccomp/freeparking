@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage , Platform, KeyboardAvoidingView} from 'react-native';
+import { Alert,  StyleSheet, Text, Image,Button, AsyncStorage , Platform, KeyboardAvoidingView} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import api from '../services/api';
 
@@ -31,9 +31,10 @@ export default class Login extends Component {
 
        console.log(response);
        Alert.alert('Logado');
-      if(token){
-        this.navigation.navigate('Home');
-      }
+       
+        if(token) {
+          this.props.navigation.navigate('Home');
+          }
     }catch (response){
       console.log('deu erro');
       console.log(response);
@@ -68,6 +69,7 @@ export default class Login extends Component {
         <TextInput
           style={styles.ctexto} 
           placeholder="Digite sua senha"
+          secureTextEntry={true}
           onChangeText={text => this.setState({senha : text})}
           
         />

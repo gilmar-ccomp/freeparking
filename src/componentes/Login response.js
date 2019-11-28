@@ -1,42 +1,57 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, View, Image,Button } from 'react-native';
+import { Alert,  StyleSheet, Text, View, Image,Button, AsyncStorage , Platform, KeyboardAvoidingView} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import api from '../services/api';
+
+
 
 export default class Login extends Component {
 
   state = {
-         erroMessage:'',
-         nome: '',
-         matricula:'',
-         email:'',
-         senha:'',
-         csenha: '',
-    };
- 
+         erroMessage: null,
+        //construtor de senha e email vazios
+        nome: '',
+        matricula:'',
+        email:'',
+        senha: '',
+    }; 
 
-  Cadastrar = async () => {
+  Logar = async () => {
     try {
-      const response = await api.post( '/users' , { 
-        username: this.state.nome,
-        registration_id: this.state.matricula,
+      const response = await api.post('/auth', { 
         email: this.state.email, 
-        password: this.state.csenha, 
+        password: this.state.senha, 
       } );
-       console.log('cadastrado');
+  
+      const { token } = response.data;
+  
+      await AsyncStorage.multiSet([
+        ['@CodeApi:token', token]
+      ]);
+
        console.log(response);
+       Alert.alert('Logado');
+      if(token){
+        this.navigation.navigate('Home');
+      }
     }catch (response){
-      this.setState({ erroMessage : response.data.error});
+      console.log('deu erro');
       console.log(response);
+      this.setState({ erroMessage: response.data.error})
     }
 
-    };
-    
+    };    
   
 
   render() {
+
+    const {navigate} = this.props.navigation;
+
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+       style={styles.container}
+       behavior="padding" enabled
+       >
 
         <Image style={styles.welcomeImage} source={require('../assets/images/carro.png')}
         />
@@ -46,40 +61,22 @@ export default class Login extends Component {
         
         <TextInput
           style={styles.ctexto} 
-          placeholder="Digite seu nome"
-          onChangeText={text => this.setState({nome : text})}
-          
-        />
-        <TextInput
-          style={styles.ctexto} 
-          placeholder="Digite sua matrícula"
-          onChangeText={text => this.setState({matricula : text})}
-          
-        />
-        <TextInput
-          style={styles.ctexto} 
           placeholder="Digite seu email"
-          onChangeText={text => this.setState({email : text})}
+          onChangeText={text => this.setState({email:text})}
           
         />
         <TextInput
           style={styles.ctexto} 
           placeholder="Digite sua senha"
-          secureTextEntry={true}
           onChangeText={text => this.setState({senha : text})}
           
         />
-        <TextInput
-          style={styles.ctexto} 
-          placeholder="Repita sua senha"
-          secureTextEntry={true}
-          onChangeText={text => this.setState({csenha : text})}
-          
-        />
 
-        <Button style={styles.botao} onPress={ this.Cadastrar} title="Confirmar"/>
+        
+        <Button  onPress={ this.Logar} title="Logar"/>
+        <Button  onPress={ () => navigate('Cadastrar') } title="Cadastrar" />
     
-      </View>
+       </KeyboardAvoidingView>
     );
   }
 }
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
   },
   ctexto: {
     marginTop: 10,
-    padding: 10,
+    padding: 15,
     width: 300,
     backgroundColor: '#fff',
     borderRadius: 4,
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   botao: {
-    width: 100,
+    width: 300,
     backgroundColor: '#4CB1F7',
     marginTop: 10,
     padding: 15,

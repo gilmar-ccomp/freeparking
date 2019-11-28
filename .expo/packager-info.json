@@ -1,9 +1,9 @@
 {
-  "expoServerNgrokUrl": "https://6q-hh2.anonymous.freeparking.exp.direct",
-  "packagerNgrokUrl": "https://packager.6q-hh2.anonymous.freeparking.exp.direct",
-  "ngrokPid": 8040,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 8796
+  "packagerPid": 7324,
+  "expoServerNgrokUrl": "https://cx-hbw.anonymous.freeparking.exp.direct",
+  "packagerNgrokUrl": "https://packager.cx-hbw.anonymous.freeparking.exp.direct",
+  "ngrokPid": 8108
 }
