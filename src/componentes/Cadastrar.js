@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, View, Image,Button } from 'react-native';
+import { Alert,  StyleSheet, Text, KeyboardAvoidingView, Image,Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import api from '../services/api';
 
@@ -36,7 +36,10 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+       style={styles.container}
+       behavior="padding" enabled
+       >
 
         <Image style={styles.welcomeImage} source={require('../assets/images/carro.png')}
         />
@@ -79,7 +82,7 @@ export default class Login extends Component {
 
         <Button style={styles.botao} onPress={ this.Cadastrar} title="Confirmar"/>
     
-      </View>
+        </KeyboardAvoidingView>
     );
   }
 }

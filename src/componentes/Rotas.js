@@ -32,6 +32,12 @@ const MainNav = createStackNavigator (
         navigationOptions:{
             headerTitle:'Bem vindo'
         }
+    },
+    Vagas:{
+        screen: Vagas,
+        navigationOptions:{
+            headerTitle:'Selecione uma vaga'
+        }
     }
 }    
 )

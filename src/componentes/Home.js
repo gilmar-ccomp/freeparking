@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View, Picker, StyleSheet } from 'react-native';
+import {Text, KeyboardAvoidingView, Picker, StyleSheet, itemIndex } from 'react-native';
 
 
 export default class Home extends Component {
@@ -12,29 +12,36 @@ const { navigation } = this.props;
 const nomeUsuario = navigation.getParam('nome');
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+       style={styles.container}
+       behavior="padding" enabled
+       >
+         <Text>Olá { nomeUsuario }</Text>
         
         <Text style={styles.welcome}>Bem vindo ao Free Parking!</Text>
         <Picker
-        style = {styles.picker}
-        selectedValue={this.state.unidades}
-        onValueChange={
-          (itemValor, itemIndex) => this.setState({
-            unidades: itemValor
-          })
-        }
-        >
-          <Picker.item label="Selecione sua Unidade Uninorte para ver as vagas" value=""/>
-          <Picker.item label="Unidade 1" value="Unidade 1"/>
-          <Picker.item label="Unidade 1" value="Unidade 10"/>
-          <Picker.item label="Unidade 1" value="Unidade 6"/>
-          <Picker.item label="Unidade 1" value="Unidade 4"/>
-          <Picker.item label="Unidade 1" value="Unidade 11"/>
-        </Picker>
+            selectedValue={this.state.unidades}
+            style={ styles.list}
+            onValueChange={(itemValue, itemIndex) =>
+            this.setState({unidade: itemValue})
+         }>
+             <Picker.Item label="Selecione uma das unidades" value="" />
+             <Picker.Item label="Unidade 1" value="1" />
+             <Picker.Item label="Unidade 3" value="3" />
+             <Picker.Item label="Unidade 4" value="4" />
+             <Picker.Item label="Unidade 6" value="6" />
+             <Picker.Item label="Unidade 9" value="9" />
+             <Picker.Item label="Unidade 10" value="10" />
+             <Picker.Item label="Unidade 11" value="11" />
+             <Picker.Item label="Unidade 20" value="20" />
+         </Picker>
 
-        <Text>Olá { nomeUsuario }</Text>
+         <TouchableOpacity style={styles.botao} onPress={ () => navigate('Vagas') }>
+          <Text>Ver vagas disponíveis</Text>
+          </TouchableOpacity>
+        
        
-      </View>
+        </KeyboardAvoidingView>
     );
   }
 }
@@ -80,5 +87,15 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 4,
     borderColor: '#F2F2F2'
+  },
+  picker: {
+
+  },
+  list:{
+    height: 50,
+    width: 300,
+    alignItems: 'center',
+    justifyContent: "center"
   }
+
 });

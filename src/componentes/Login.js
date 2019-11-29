@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, Image,Button, AsyncStorage , Platform, KeyboardAvoidingView} from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Alert,  StyleSheet, Text, Image, AsyncStorage , Platform, KeyboardAvoidingView} from 'react-native';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import api from '../services/api';
 
 
@@ -75,8 +75,12 @@ export default class Login extends Component {
         />
 
         
-        <Button  onPress={ this.Logar} title="Logar"/>
-        <Button  onPress={ () => navigate('Cadastrar') } title="Cadastrar" />
+        <TouchableOpacity style={styles.botao} onPress={ this.Logar}>
+          <Text>Logar</Text>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.botao} onPress={ () => navigate('Cadastrar') }>
+          <Text>Cadastrar</Text>
+          </TouchableOpacity>
     
        </KeyboardAvoidingView>
     );
@@ -119,10 +123,13 @@ const styles = StyleSheet.create({
   },
   botao: {
     width: 300,
+    color:'#fff',
     backgroundColor: '#4CB1F7',
     marginTop: 10,
     padding: 15,
     borderRadius: 4,
-    borderColor: '#F2F2F2'
+    borderColor: '#F2F2F2',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
