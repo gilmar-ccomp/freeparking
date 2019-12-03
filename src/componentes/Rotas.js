@@ -5,6 +5,7 @@ import Login from './Login';
 import Cadastrar from './Cadastrar';
 import cadastro from './Cadastro';
 import Home from './Home';
+import Vagas from './Vagas';
 
 const MainNav = createStackNavigator (
 {

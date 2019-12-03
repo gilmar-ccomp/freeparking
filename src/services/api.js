@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 import { create } from 'apisauce';
 
 const api = create({
-  baseURL: 'http://10.0.0.103:3333/api'
+  baseURL: 'https://parking-node-app.herokuapp.com/api'
 });
 
 api.addAsyncRequestTransform(request => async () =>{
