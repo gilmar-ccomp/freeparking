@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, KeyboardAvoidingView, Picker, StyleSheet, itemIndex } from 'react-native';
+import {Text, KeyboardAvoidingView, Picker, StyleSheet, TouchableOpacity } from 'react-native';
 
 
 export default class Home extends Component {
@@ -8,15 +8,17 @@ export default class Home extends Component {
   }
   
   render() {
-const { navigation } = this.props;
-const nomeUsuario = navigation.getParam('nome');
+/*const { navigation } = this.props;
+const nomeUsuario = navigation.getParam('nome');*/
+
+const {navigate} = this.props.navigation;
 
     return (
       <KeyboardAvoidingView
        style={styles.container}
        behavior="padding" enabled
        >
-         <Text>Olá { nomeUsuario }</Text>
+         <Text>Olá </Text>
         
         <Text style={styles.welcome}>Bem vindo ao Free Parking!</Text>
         <Picker
