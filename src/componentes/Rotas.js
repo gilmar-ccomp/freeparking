@@ -1,14 +1,21 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+import Splash from './Splash';
 import Login from './Login';
 import Cadastrar from './Cadastrar';
-import cadastro from './Cadastro';
+import Reservar from './Reservar';
 import Home from './Home';
 import Vagas from './Vagas';
 
 const MainNav = createStackNavigator (
 {
+    Splash:{
+        screen: Splash,
+        navigationOptions:{
+            header: null
+        }
+    },
     Login:{
         screen: Login,
         navigationOptions:{
@@ -21,10 +28,10 @@ const MainNav = createStackNavigator (
             header: null
         }
     },
-    Cadastro:{
-        screen: cadastro,
+    Reservar:{
+        screen: Reservar,
         navigationOptions:{
-            headerTitle: 'Cadastro Realizado'
+            headerTitle: 'Faça sua Reserva'
 
         }
     },
