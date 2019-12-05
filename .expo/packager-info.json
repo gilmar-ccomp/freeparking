@@ -2,15 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-<<<<<<< HEAD
   "packagerPid": 8664,
   "expoServerNgrokUrl": "https://td-3hd.anonymous.freeparking.exp.direct",
   "packagerNgrokUrl": "https://packager.xp-i25.anonymous.freeparking.exp.direct",
   "ngrokPid": 7892
-=======
-  "packagerPid": 8528,
-  "expoServerNgrokUrl": "https://ar-qtg.anonymous.freeparking.exp.direct",
-  "packagerNgrokUrl": "https://packager.ar-qtg.anonymous.freeparking.exp.direct",
-  "ngrokPid": 4720
->>>>>>> b7aa9507f3c749fb21659bc1f1101b072a22857c
 }
