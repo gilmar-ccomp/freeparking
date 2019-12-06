@@ -1,7 +1,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Splash from './Splash';
+
 import Login from './Login';
 import Cadastrar from './Cadastrar';
 import Reservar from './Reservar';
@@ -10,12 +10,7 @@ import Vagas from './Vagas';
 
 const MainNav = createStackNavigator (
 {
-    Splash:{
-        screen: Splash,
-        navigationOptions:{
-            header: null
-        }
-    },
+
     Login:{
         screen: Login,
         navigationOptions:{
