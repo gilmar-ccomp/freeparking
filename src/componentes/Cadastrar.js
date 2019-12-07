@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert,  StyleSheet, Text, KeyboardAvoidingView, Image,Button } from 'react-native';
+import { Alert,  StyleSheet, Text, KeyboardAvoidingView, Image, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import api from '../services/api';
 
@@ -25,6 +25,7 @@ export default class Cadastrar extends Component {
       } );
        console.log('cadastrado');
        console.log(response);
+       Alert.alert('Cadastrado com Sucesso!');
        this.props.navigation.navigate('Login');
     }catch (response){
       this.setState({ erroMessage : response.data.error});
@@ -81,7 +82,9 @@ export default class Cadastrar extends Component {
           
         />
 
-        <Button style={styles.botao} onPress={ this.Cadastrar} title="Confirmar"/>
+          <TouchableOpacity style={styles.botao} onPress={ this.Cadastrar}>
+          <Text>Cadastrar</Text>
+          </TouchableOpacity>
     
         </KeyboardAvoidingView>
     );
