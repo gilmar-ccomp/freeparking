@@ -9,7 +9,6 @@ export default class Login extends Component {
 
   state = {
          erroMessage: null,
-        //construtor de senha e email vazios
         nome: '',
         matricula:'',
         email:'',
@@ -22,15 +21,15 @@ export default class Login extends Component {
         email: this.state.email, 
         password: this.state.senha, 
       } );
-  
+
       const { token } = response.data;
   
       await AsyncStorage.multiSet([
-        ['@CodeApi:token', token]
+        ['@CodeApi:token', token],
       ]);
-
+       
        console.log(response);
-       Alert.alert('Logado');
+       Alert.alert('Usuário Logado');
        
         if(token) {
           this.props.navigation.navigate('Home');
@@ -42,6 +41,7 @@ export default class Login extends Component {
     }
 
     };    
+
   
 
   render() {

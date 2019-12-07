@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Text, KeyboardAvoidingView, FlatList, StyleSheet , TouchableOpacity} from 'react-native';
+import {Text, KeyboardAvoidingView, StyleSheet , TouchableOpacity} from 'react-native';
 
 
-export default class Vagas extends Component {
+export default class Estacionar extends Component {
 
   render() {
     
@@ -15,24 +15,10 @@ export default class Vagas extends Component {
         
         <Text style={styles.welcome}>Bem vindo ao Free Parking! Verifique as vagas</Text>
 
-        <FlatList
-          data={[
-            {key: '1'},
-            {key: '2'},
-            {key: '3'},
-            {key: '4'},
-            {key: '5'},
-            {key: '6'},
-            {key: '7'},
-            {key: '8'},
-            {key: '9'},
-            {key: '10'},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
+        <Text style={styles.welcome}>Seu QRCode será gerado aqui apos reservar uma vaga</Text>
       
          <TouchableOpacity style={styles.botao}>
-          <Text>Ver vagas disponíveis</Text>
+          <Text>Confirmar</Text>
           </TouchableOpacity>
         
        
@@ -94,3 +80,4 @@ const styles = StyleSheet.create({
   }
 
 });
+

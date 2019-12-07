@@ -3,7 +3,7 @@ import { Alert,  StyleSheet, Text, KeyboardAvoidingView, Image,Button } from 're
 import { TextInput } from 'react-native-gesture-handler';
 import api from '../services/api';
 
-export default class Login extends Component {
+export default class Cadastrar extends Component {
 
   state = {
          erroMessage:'',
@@ -25,6 +25,7 @@ export default class Login extends Component {
       } );
        console.log('cadastrado');
        console.log(response);
+       this.props.navigation.navigate('Login');
     }catch (response){
       this.setState({ erroMessage : response.data.error});
       console.log(response);

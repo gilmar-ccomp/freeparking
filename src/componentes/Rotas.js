@@ -7,6 +7,7 @@ import Cadastrar from './Cadastrar';
 import Reservar from './Reservar';
 import Home from './Home';
 import Vagas from './Vagas';
+import Estacionar from './Estacionar';
 
 const MainNav = createStackNavigator (
 {
@@ -40,6 +41,12 @@ const MainNav = createStackNavigator (
         screen: Vagas,
         navigationOptions:{
             headerTitle:'Selecione uma vaga'
+        }
+    },
+    Estacionar:{
+        screen: Estacionar,
+        navigationOptions:{
+            headerTitle:'Confirme sua entrada'
         }
     }
 }    
